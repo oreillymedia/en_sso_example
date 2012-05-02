@@ -1,0 +1,5 @@
+<h1>Protected Page</h1>
+
+Hello, <%= current_user.email %>
+
+<p><%= link_to "Sign Out", destroy_user_session_path, :method => :delete %></p>

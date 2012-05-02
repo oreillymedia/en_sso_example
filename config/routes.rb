@@ -1,6 +1,8 @@
 EnSsoExample::Application.routes.draw do
   get "page/index"
 
+  get "protected", :to => "page#protected"
+
   root :to => "page#index"
 
   devise_for :users
