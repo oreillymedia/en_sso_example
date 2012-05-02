@@ -3,6 +3,8 @@ EnSsoExample::Application.routes.draw do
 
   root :to => "page#index"
 
+  devise_for :users
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
