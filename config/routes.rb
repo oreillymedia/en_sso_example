@@ -7,8 +7,7 @@ EnSsoExample::Application.routes.draw do
 
   # Skip sign-in form (must appear above devise_for :users)
   match '/users/sign_in' => redirect("/users/auth/sso")
-  devise_for :users
-  #, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
+  devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
 
   # The wiki suggests this, but it doesn't skip sign_in for me...
   #devise_scope :user do
