@@ -5,7 +5,16 @@ EnSsoExample::Application.routes.draw do
 
   root :to => "page#index"
 
+  # Skip sign-in form (must appear above devise_for :users)
+  match '/users/sign_in' => redirect("/users/auth/sso")
   devise_for :users
+  #, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
+
+  # The wiki suggests this, but it doesn't skip sign_in for me...
+  #devise_scope :user do
+  #  match 'sign_in' => redirect("/users/auth/sso")
+  #  get 'sign_out', :to => 'users/sessions#destroy', :as => :destroy_user_session
+  #end
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
