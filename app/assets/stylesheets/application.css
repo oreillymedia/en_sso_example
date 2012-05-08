@@ -11,3 +11,11 @@
  *= require_self
  *= require_tree .
 */
+
+/* Rails flash */
+p.flash {
+	background: #ff8;
+}
+p.flash.error {
+	background: #f88;
+}
