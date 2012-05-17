@@ -3,3 +3,5 @@
 Hello, <%= current_user.email %>
 
 <p><%= link_to "Sign Out", destroy_user_session_path, :method => :delete %></p>
+
+<p><%= link_to "View Paid Content", paid_content_path %></p>

@@ -14,8 +14,13 @@ class User < ActiveRecord::Base
     if user = User.where(:email => data["email"]).first
       user
     else
-      User.create!(:email => data["email"],
-                   :password => Devise.friendly_token[0,20])
+      User.create!({
+        :email => data["email"],
+        :identity_url => access_token.uid,
+        :password => Devise.friendly_token[0,20],
+      # Bypass mass assignment protection for :identity_url because
+      # we are specifically selecting attributes for inclusion in the hash.
+      }, :without_protection => true)
     end
   end
 end

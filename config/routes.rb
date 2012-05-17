@@ -3,6 +3,8 @@ EnSsoExample::Application.routes.draw do
 
   get "protected", :to => "page#protected"
 
+  get "paid_content", :to => "page#paid_content"
+
   root :to => "page#index"
 
   # Skip sign-in form (must appear above devise_for :users)
