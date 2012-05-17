@@ -27,7 +27,8 @@ h2. Running in Your Environment
 
 If you want to run this code in your environment, you'll need to pick an appropriate OpenID end-point.  Most features don't require O'Reilly Media's SSO end-point; you can use any public provider for test purposes.
 
-If using O'Reilly Media's SSO, O'Reilly Media will need to authorize your app's domain to authenticate against the service.
+If using O'Reilly Media's SSO, O'Reilly Media will need to authorize your app's domain to authenticate against the service.  If you see a "cancel" status from
+SSO or too many redirects during authentication, this is likely the cause.
 
 h2. Avoid devise_openid_authenticatable
 
