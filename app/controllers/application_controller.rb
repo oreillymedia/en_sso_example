@@ -16,7 +16,7 @@ class ApplicationController < ActionController::Base
     uri.query = { :grantee => identity_url, :accessTo => product_uri }.to_query
 
     # Make Graph.load work with https
-    ENV['SSL_CERT_FILE'] ||= Rails.root+"config/ca-certificates.crt"
+    ENV['SSL_CERT_FILE'] ||= "#{Rails.root}/config/ca-certificates.crt"
 
     # We could probably just call graph.count and ensure the answer is not zero,
     # but for thoroughness, let's actually ensure the returned graph contains
