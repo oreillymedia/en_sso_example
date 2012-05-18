@@ -9,6 +9,7 @@ h2. Basic Setup
 ** The instructions for "Using OmniAuth without other authentications" didn't work out for me, even if I changed the :to for "sign_in" to something else, so I redirected that path instead  (see config/routes.rb)
 ** Use the sample for auto-creating users listed under "Google" (see "Devise wiki":https://github.com/plataformatec/devise/wiki/OmniAuth:-Overview)
 ** Skip :verify_authenticity_token filter on OpenID callback to make the devise helper stored_location_for work (see app/controllers/users/omniauth_callbacks_controller.rb)
+** Customize the omniauth_callbacks_controller to refine error handling
 ** Add authorize_user! filter to check O'Reilly API for permissions
 
 h2. Implemented Features
@@ -16,6 +17,7 @@ h2. Implemented Features
 * User doesn't need to enter an OpenID URI; the SSO OpenID end-point is configured in config/initializers/devise.rb.
 * The user bypasses the sign_in form and proceeds directly to OpenID to login; SSO is the only available authentication mechanism so there is no need to offer choices on the sign_in page
 * SSO users who are new to the sample app will have a User record auto-created with the email address and identity_url returned from OpenID attribute exchange
+* During auth failure, redirect back to root_url instead of sign_in to avoid a redirect loop
 * Access to content is restricted based on O'Reilly permissions API
 
 h2. Unimplemented Features
