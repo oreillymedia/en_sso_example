@@ -22,4 +22,12 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   def after_omniauth_failure_path_for(scope)
     root_url
   end
+
+  def failure_message
+    if failed_strategy.extra["response"].status == :cancel
+      "Authentication cancelled; is this app authorized to use O'Reilly OpenID?"
+    else
+      super
+    end
+  end
 end
