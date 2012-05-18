@@ -24,6 +24,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   end
 
   def failure_message
+    logger.info "rack.openid.response: "+env['rack.openid.response'].inspect
     if failed_strategy.extra["response"].status == :cancel
       "Authentication cancelled; is this app authorized to use O'Reilly OpenID?"
     else

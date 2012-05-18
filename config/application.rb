@@ -62,3 +62,6 @@ module EnSsoExample
     config.oreilly = OpenStruct.new
   end
 end
+
+require 'rack_openid_diagnostics'
+require 'ruby_openid_diagnostics'
