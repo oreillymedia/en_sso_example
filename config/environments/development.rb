@@ -37,4 +37,7 @@ EnSsoExample::Application.configure do
 
   # For devise
   config.action_mailer.default_url_options = { :host => 'localhost:3000' }
+
+  config.oreilly.openid_service_url = 'https://openidstage2.oreilly.com/'
+  config.oreilly.permissions_api_url = 'https://membersstage2.oreilly.com/permissions'
 end

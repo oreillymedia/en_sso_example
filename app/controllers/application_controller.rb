@@ -12,7 +12,7 @@ class ApplicationController < ActionController::Base
     # Enterprise Rails (Ebook)
     product_uri = "urn:x-domain:oreilly.com:product:9780596515201.EBOOK"
 
-    uri = URI.parse("https://membersstage2.oreilly.com/permissions")
+    uri = URI.parse(Rails.configuration.oreilly.permissions_api_url)
     uri.query = { :grantee => identity_url, :accessTo => product_uri }.to_query
 
     # Make Graph.load work with https

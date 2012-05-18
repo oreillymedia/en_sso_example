@@ -58,5 +58,7 @@ module EnSsoExample
 
     # Enable asset compilation during slug compilation on Heroku
     config.assets.initialize_on_precompile = false
+
+    config.oreilly = OpenStruct.new
   end
 end
