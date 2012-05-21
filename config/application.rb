@@ -60,6 +60,10 @@ module EnSsoExample
     config.assets.initialize_on_precompile = false
 
     config.oreilly = OpenStruct.new
+
+    config.oreilly.openid_service_url = "https://openidstage.oreilly.com/"
+    pass = CGI.escape(ENV['ORM_PERMISSIONS_API_PASSWD'] || "")
+    config.oreilly.permissions_api_url = "https://en_sso_example:#{pass}@membersstage.oreilly.com/permissions"
   end
 end
 
