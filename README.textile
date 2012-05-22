@@ -27,7 +27,7 @@ h2. Unimplemented Features
 * Cleanup fields related to password auth in the schema (left over from default Devise install)
 * Save first and last name with the user record
 * Configure the OpenID end-point URL on a per-environment basis
-* Timeouts and caching when accessing permissions API
+* Caching when accessing permissions API
 
 h2. Running in Your Environment
 
@@ -44,7 +44,7 @@ SSO or too many redirects during authentication, this is likely the cause.
 
 h3. config.oreilly.permissions_api_url
 
-The O'Reilly permission API will not currently work outside O'Reilly's firewall.
+You'll need HTTP Basic Auth credentials to access this API outside of O'Reilly's internal network.
 
 h2. Avoid devise_openid_authenticatable
 
