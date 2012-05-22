@@ -5,7 +5,7 @@ module Permission
     uri = URI.parse(Rails.configuration.oreilly.permissions_api_url)
     uri.query = { :grantee => identity_url, :accessTo => product_uri }.to_query
 
-    logger.debug "Fetching permission from #{uri}"
+    logger.debug "Fetching permission from #{filter_uri_password(uri)}"
     rdf = fetch_body(uri)
 
     # We could probably just call graph.count and ensure the answer is not zero,
@@ -61,6 +61,14 @@ module Permission
     resp.value
 
     resp.body
+  end
+
+  def filter_uri_password(original_uri)
+    uri = original_uri.clone
+    if uri.password
+      uri.password = "*" * uri.password.length
+    end
+    uri
   end
 
   def logger
