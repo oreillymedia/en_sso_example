@@ -11,6 +11,7 @@ h2. Basic Setup
 ** Skip :verify_authenticity_token filter on OpenID callback to make the devise helper stored_location_for work (see app/controllers/users/omniauth_callbacks_controller.rb)
 ** Customize the omniauth_callbacks_controller to refine error handling
 ** Add authorize_user! filter to check O'Reilly API for permissions
+** Add permitted_products accessor for O'Reilly permissions API
 
 h2. Implemented Features
 
@@ -20,6 +21,7 @@ h2. Implemented Features
 * During auth failure, redirect back to root_url instead of sign_in to avoid a redirect loop
 * Provide a specific error message when the app is not authorized by O'Reilly to use the OpenID service
 * Access to content is restricted based on O'Reilly permissions API
+* List of products to which a user is permitted access
 
 h2. Unimplemented Features
 

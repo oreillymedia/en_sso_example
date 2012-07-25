@@ -5,6 +5,10 @@ class PageController < ApplicationController
   def paid_content
   end
 
+  def permissions
+    @products = Permission.permitted_products(current_user.identity_url)
+  end
+
   def protected
   end
 

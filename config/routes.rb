@@ -2,8 +2,8 @@ EnSsoExample::Application.routes.draw do
   get "page/index"
 
   get "protected", :to => "page#protected"
-
   get "paid_content", :to => "page#paid_content"
+  get "permissions", :to => "page#permissions"
 
   root :to => "page#index"
 

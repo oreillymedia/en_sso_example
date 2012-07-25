@@ -1,0 +1,11 @@
+<h1>Permissions</h1>
+
+<p>You have access to <%= pluralize @products.size, 'product' %>:</p>
+<ul>
+<% @products.each do |p| %>
+	<li><%=link_to p.uri, shop_url(p) %>
+<% end %>
+</ul>
+
+<p>Visit a <%= link_to "protected page", :action => :protected %>.
+
