@@ -1,4 +1,5 @@
 class Product
+  include RdfApi
 
   attr_reader :uri
 
@@ -15,4 +16,30 @@ class Product
     return m[1] if m
   end
 
+  def title
+    fetch_title
+  end
+
+  def fetch_title
+    api_uri = URI.parse("http://opmi.labs.oreilly.com/product/#{self.isbn}")
+    graph = fetch_graph(api_uri)
+
+    query = RDF::Query.new({
+      RDF::URI.new(self.uri) => {
+        RDF.type => om.Product,
+        om.customerTitle => :title,
+      }
+    })
+    solutions = query.execute(graph)
+
+    logger.debug "Solution count: #{solutions.count}"
+    logger.debug "First solution: #{solutions.first.inspect}"
+
+    soln = solutions.first
+    soln.title.to_s if soln
+  end
+
+  def om
+    @@om_namespace ||= RDF::Vocabulary.new("http://purl.oreilly.com/ns/meta/")
+  end
 end

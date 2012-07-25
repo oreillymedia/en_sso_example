@@ -3,7 +3,7 @@
 <p>You have access to <%= pluralize @products.size, 'product' %>:</p>
 <ul>
 <% @products.each do |p| %>
-	<li><%=link_to p.uri, shop_url(p) %>
+	<li><%=link_to p.title || "[title unknown]", shop_url(p) %>
 <% end %>
 </ul>
 

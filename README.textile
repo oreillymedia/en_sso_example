@@ -12,6 +12,7 @@ h2. Basic Setup
 ** Customize the omniauth_callbacks_controller to refine error handling
 ** Add authorize_user! filter to check O'Reilly API for permissions
 ** Add permitted_products accessor for O'Reilly permissions API
+** Add product title accessor which uses the public "OPMI API":http://labs.oreilly.com/opmi.html
 
 h2. Implemented Features
 
@@ -21,7 +22,7 @@ h2. Implemented Features
 * During auth failure, redirect back to root_url instead of sign_in to avoid a redirect loop
 * Provide a specific error message when the app is not authorized by O'Reilly to use the OpenID service
 * Access to content is restricted based on O'Reilly permissions API
-* List of products to which a user is permitted access
+* List of products to which a user is permitted access, by title
 
 h2. Unimplemented Features
 
@@ -29,7 +30,7 @@ h2. Unimplemented Features
 * Cleanup fields related to password auth in the schema (left over from default Devise install)
 * Save first and last name with the user record
 * Configure the OpenID end-point URL on a per-environment basis
-* Caching when accessing permissions API
+* Caching when accessing permissions and product APIs
 
 h2. Running in Your Environment
 
