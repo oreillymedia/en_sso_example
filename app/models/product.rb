@@ -22,6 +22,9 @@ class Product
 
   def title
     fetch_title
+  rescue Net::HTTPServerException
+    logger.info "Failed to fetch title for #{uri}: #{$!}"
+    nil
   end
 
   def fetch_title
