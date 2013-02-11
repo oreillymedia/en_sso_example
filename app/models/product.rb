@@ -16,6 +16,10 @@ class Product
     @isbn, @format_code = m[1], m[2]
   end
 
+  def oracle_id
+    "#{isbn}.#{format_code}"
+  end
+
   def title
     fetch_title
   end

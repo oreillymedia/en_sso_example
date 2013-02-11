@@ -16,7 +16,8 @@ class ApplicationController < ActionController::Base
       return true
     end
 
-    flash[:alert] = "You are not authorized to access: Enterprise Rails (Ebook)"
+    title, oracle_id = product.title, product.oracle_id
+    flash[:alert] = "You are not authorized to access: #{title} (#{oracle_id})"
     redirect_to root_path
   end
 end
