@@ -1,5 +1,5 @@
 module RdfApi
-  include ActiveSupport::Benchmarkable
+  include HttpApi
 
   def fetch_graph(uri)
     logger.debug "Fetching permissions from #{filter_uri_password(uri)}"
@@ -17,39 +17,4 @@ module RdfApi
     end
   end
 
-  def fetch_body(uri)
-    http = Net::HTTP.new(uri.host, uri.port)
-    http.read_timeout = 5
-    http.open_timeout = 5
-
-    # SSL stuff
-    if uri.scheme == "https"
-      http.use_ssl = true
-      http.verify_mode = OpenSSL::SSL::VERIFY_PEER
-      http.ca_file = "#{Rails.root}/config/ca-certificates.crt"
-    end
-
-    # Basic auth stuff
-    req = Net::HTTP::Get.new(uri.request_uri)
-    req.basic_auth uri.user, uri.password
-
-    resp = benchmark("GET #{uri.request_uri}") { http.request(req) }
-
-    # Raise on error
-    resp.value
-
-    resp.body
-  end
-
-  def filter_uri_password(original_uri)
-    uri = original_uri.clone
-    if uri.password
-      uri.password = "*" * uri.password.length
-    end
-    uri
-  end
-
-  def logger
-    Rails.logger
-  end
 end

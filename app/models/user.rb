@@ -23,4 +23,16 @@ class User < ActiveRecord::Base
       }, :without_protection => true)
     end
   end
+
+  def identity_guid
+    # Assumes the O'Reilly identity_url format
+    guid_re =
+      /([0-9a-f]{8}-
+        [0-9a-f]{4}-
+        [0-9a-f]{4}-
+        [0-9a-f]{4}-
+        [0-9a-f]{12})/x
+    m = guid_re.match(identity_url)
+    m[1] if m
+  end
 end

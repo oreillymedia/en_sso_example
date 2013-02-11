@@ -6,7 +6,7 @@ class PageController < ApplicationController
   end
 
   def permissions
-    @products = Permission.permitted_products(current_user.identity_url)
+    @products = Permission.permitted_products(current_user)
   end
 
   def protected

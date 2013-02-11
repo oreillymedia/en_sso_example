@@ -1,19 +1,19 @@
 class Product
   include RdfApi
 
-  attr_reader :uri
+  attr_reader :uri, :isbn, :format_code
 
   def self.from_uri(product_uri)
-    new.tap do |product|
-      product.instance_variable_set('@uri', product_uri)
-    end
+    new(product_uri)
   end
 
-  def isbn
+  def initialize(product_uri)
+    @uri = product_uri
+
     # Format: urn:x-domain:oreilly.com:product:9780596103866.EBOOK
-    re = /\Aurn:x-domain:oreilly.com:product:([0-9]+)\.[A-Z]+\Z/
+    re = /\Aurn:x-domain:oreilly.com:product:([0-9]+)\.([A-Z]+)\Z/
     m = re.match(uri)
-    return m[1] if m
+    @isbn, @format_code = m[1], m[2]
   end
 
   def title

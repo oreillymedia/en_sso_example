@@ -62,8 +62,13 @@ module EnSsoExample
     config.oreilly = OpenStruct.new
 
     config.oreilly.openid_service_url = "https://openidstage.oreilly.com/"
+
     pass = CGI.escape(ENV['ORM_PERMISSIONS_API_PASSWD'] || "")
-    config.oreilly.permissions_api_url = "https://en_sso_example:#{pass}@membersstage.oreilly.com/permissions"
+    config.oreilly.permissions_api_url =
+      "https://en_sso_example:#{pass}@membersstage.oreilly.com/permissions"
+
+    config.oreilly.permissions_service_url =
+      "http://etls.dev.west.ora.com/permission-service"
   end
 end
 

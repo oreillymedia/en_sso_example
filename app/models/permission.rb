@@ -2,7 +2,8 @@ module Permission
   module_function
   extend RdfApi
 
-  def permitted_products(identity_url)
+  def permitted_products(user)
+    identity_url = user.identity_url
     graph = fetch_permissions_graph(:grantee => identity_url)
 
     query = RDF::Query.new({
@@ -20,31 +21,21 @@ module Permission
     solutions.map {|sol| Product.from_uri(sol.product_uri.try(&:to_s)) }
   end
 
-  def can_access(identity_url, product_uri)
-    graph = fetch_permissions_graph(:grantee => identity_url,
-                                    :accessTo => product_uri)
+  def can_access(user, product)
+    user_guid = user.identity_guid
+    isbn, format = product.isbn, product.format_code.downcase
+    url = Rails.configuration.oreilly.permissions_service_url
+    url += "/v1/permissions"
+    url += "/owners/#{user_guid}/products/#{isbn}/formats/#{format}"
 
-    # We could probably just call graph.count and ensure the answer is not zero,
-    # but for thoroughness, let's actually ensure the returned graph contains
-    # the applicable permission.
+    resp = fetch_response(URI.parse(url))
+    logger.info "Response code: #{resp.code} (#{resp.message})"
 
-    query = RDF::Query.new({
-      :permission => {
-        RDF.type  => perms.Permission,
-        perms.grantee => RDF::URI.new(identity_url),
-        perms.accessTo => RDF::URI.new(product_uri),
-      }
-    })
-    solutions = query.execute(graph)
-
-    # This permission should not be repeated, in fact there should only be
-    # one permission in the response.
-    if solutions.count == 1
-      logger.debug "Solution: #{solutions.first.inspect}"
-      return true
+    case resp.code.to_i
+    when 200, 204 then true
+    when 404 then false
+    else resp.error!
     end
-
-    return false
   end
 
   def fetch_permissions_graph(parameters)
